@@ -1,0 +1,58 @@
+#------system设置-------
+server:
+  port: 19090
+  max-http-header-size: 10240000
+  compression:
+    enabled: true
+
+spring:
+  datasource:
+#    url: jdbc:sqlite:./warehouse_test.db
+#    username:
+#    password:
+    url: jdbc:mysql://127.0.0.1:3306/xdadmin?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    druid:
+      max-active: 100
+      stat-view-servlet:
+        login-username: parking
+        login-password: Huizhifeng2016
+      remove-abandoned: true
+      remove-abandoned-timeout: 1800
+      log-abandoned: true
+      max-evictable-idle-time-millis: 10800000
+      min-evictable-idle-time-millis: 540000
+      max-wait: 60000
+      query-timeout: 60000
+      transaction-query-timeout: 60000
+      validation-query-timeout: 600
+      web-stat-filter:
+        enabled: false
+  transaction:
+    rollback-on-commit-failure: true
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    database: default
+    database-platform: org.hibernate.dialect.MySQL55Dialect
+    hibernate:
+      ddl-auto: create
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        current_session_context_class: thread
+  servlet:
+    multipart:
+      max-file-size: 1024000MB
+      max-request-size: 1024000MB
+
+common-config:
+  Version: "1.0.0"
+  startAliIot: false
+  startMqtt: false
+  startWeixin: false
+  UploadFilePath: "uploadFiles"
+  TempFilePath: "tempFiles"

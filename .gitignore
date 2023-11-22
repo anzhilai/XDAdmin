@@ -1,0 +1,6 @@
+/target/
+/logs9092/
+/logs9091/
+/.idea/
+/.idea
+!/src/main/resources/application.yml
