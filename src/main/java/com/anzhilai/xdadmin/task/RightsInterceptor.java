@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
-//@domain RYXX人员信息
 @Repository
 @XInterceptor(priority = 1)
 public class RightsInterceptor extends HandlerInterceptorAdapter {

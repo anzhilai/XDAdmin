@@ -27,7 +27,7 @@ export default class 人员管理 extends XBasePage {
   constructor(props) {
     super(props);
     this.state.visibleColumns1 = [{
-      field: "机构名称", keyword: true
+      field: "组织名称", keyword: true
     }];
     this.state.visibleColumns2 = [{
       field: "姓名", keyword: true
@@ -43,9 +43,9 @@ export default class 人员管理 extends XBasePage {
                                                       onValueChange={(v) => filter.triggerFilterChangeEvent()}/>)
     }, "出生日期", "入职时间", "登录账号", "手机号码", "个人邮箱",
       {
-        field: "部门名称", foreignKey: "组织部门id",
+        field: "组织名称", foreignKey: "组织部门id",
         editorRender: (text, record) => (<XSelectTree ref={(e) => record.editor = e} dataSourceUrl={"zzbm/querylist"}
-                                                      treePathInfoUrl={"zzbm/treeinfo"} displayField={"部门名称"}/>)
+                                                      treePathInfoUrl={"zzbm/treeinfo"} displayField={"组织名称"}/>)
       }, {
         field: "角色名称", foreignKey: "角色信息id", title: "角色名称",
         editorRender: (text, record) => (
@@ -67,7 +67,7 @@ export default class 人员管理 extends XBasePage {
     }
   }
 
-  showSaveModal组织机构(data, parent) {
+  showSaveModal组织部门(data, parent) {
     if (!data) {
       data = {};
       if (parent) {
@@ -78,22 +78,22 @@ export default class 人员管理 extends XBasePage {
     const Ele = (<XForm infoUrl={"zzbm/queryinfo"} useServerInfo={true} infoData={data} inited={(e) => this.form = e}>
       <XGrid columnGap={"10px"} rowGap={"10px"} rowsTemplate={["auto"]}>
         <XInput field={"id"} visible={false} parent={() => this.form}/>
-        <XSelectTree labelWidth={lableWidth} field={"Parentid"} label={"上级部门"}
+        <XSelectTree labelWidth={lableWidth} field={"Parentid"} label={"上级组织"}
                      dataSourceUrl={"zzbm/querylist"}
-                     treePathInfoUrl={"zzbm/treeinfo"} displayField={"部门名称"} parent={() => this.form}/>
-        <XInput isRequired={true} labelWidth={lableWidth} field={"部门名称"} parent={() => this.form}/>
+                     treePathInfoUrl={"zzbm/treeinfo"} displayField={"组织名称"} parent={() => this.form}/>
+        <XInput isRequired={true} labelWidth={lableWidth} field={"组织名称"} parent={() => this.form}/>
       </XGrid>
     </XForm>);
     XModal.ModalShow("单位信息", () => {
-      return this.SaveFormData(this.form, "zzbm/save", this.table组织机构);
+      return this.SaveFormData(this.form, "zzbm/save", this.table组织部门);
     }, Ele, "80vh");
   }
 
   showSaveModal(data) {
     if (!data) {
       data = {级别: "职员", 是否锁定: "否"};
-      if (this.select组织机构) {
-        data.组织部门id = this.select组织机构.id;
+      if (this.select组织部门) {
+        data.组织部门id = this.select组织部门.id;
       }
     }
     const labelWidth = "150px";
@@ -102,7 +102,7 @@ export default class 人员管理 extends XBasePage {
         <XInput field={"id"} labelWidth={labelWidth} visible={false} parent={() => this.form}/>
         <XSelectTree labelWidth={labelWidth} field={"组织部门id"} isRequired={true} label={"所属单位"}
                      dataSourceUrl={"zzbm/querylist"} filterData={this.props.filterData}
-                     treePathInfoUrl={"zzbm/treeinfo"} displayField={"机构名称"} parent={() => this.form}/>
+                     treePathInfoUrl={"zzbm/treeinfo"} displayField={"组织名称"} parent={() => this.form}/>
         <XInput field={"姓名"} labelWidth={labelWidth} isRequired={true} parent={() => this.form}/>
         <XRadioGroup field={"性别"} labelWidth={labelWidth} value={"男"} items={["男", "女"]}
                      parent={() => this.form}/>
@@ -134,25 +134,25 @@ export default class 人员管理 extends XBasePage {
   render() {
     return (<XCard paddingTRBL={"10px"}>
       <XGrid columnsTemplate={["300px", "1fr"]} columnGap={"10px"}>
-        <XTableGrid dataSourceUrl="zzbm/querylist" inited={(e) => this.table组织机构 = e}
+        <XTableGrid dataSourceUrl="zzbm/querylist" inited={(e) => this.table组织部门 = e}
                     showButtons={false} showSearch={false} isTree={true} filterData={this.props.filterData}
                     onSelectChange={(row) => {
-                      this.select组织机构 = row;
+                      this.select组织部门 = row;
                       this.table.Refresh({组织机构TreePath: row.TreePath});
                     }} draggable={true}
                     visibleColumns={this.state.visibleColumns1}
                     extraButtons={(<XFlex contentHAlign={"start"}>
                       <XButton text={"新增"} dropdownItems={["新增子级"]} onClick={(item) => {
                         if (item === "新增子级") {
-                          this.showSaveModal组织机构(undefined, this.table组织机构.GetSelectRow());
+                          this.showSaveModal组织部门(undefined, this.table组织部门.GetSelectRow());
                         } else {
-                          this.showSaveModal组织机构();
+                          this.showSaveModal组织部门();
                         }
                       }}/>
                       <XButton text={"修改"}
-                               onClick={() => this.table组织机构.GetSelectRow() && this.showSaveModal组织机构(this.table组织机构.GetSelectRow())}/>
+                               onClick={() => this.table组织部门.GetSelectRow() && this.showSaveModal组织部门(this.table组织部门.GetSelectRow())}/>
                       <XButton text={"删除"}
-                               onClick={() => this.DeleteTableSelect("zzbm/delete", this.table组织机构)}/>
+                               onClick={() => this.DeleteTableSelect("zzbm/delete", this.table组织部门)}/>
                     </XFlex>)}/>
         <XTableGrid inited={(e) => this.table = e} dataSourceUrl="ryxx/querylist" mustHasFilter={true}
                     draggable={true} visibleColumns={this.state.visibleColumns2} filterData={this.props.filterData}

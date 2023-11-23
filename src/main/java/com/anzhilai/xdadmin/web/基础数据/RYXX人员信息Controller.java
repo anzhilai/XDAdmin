@@ -1,6 +1,9 @@
 package com.anzhilai.xdadmin.web.基础数据;
 
-import com.anzhilai.core.base.*;
+import com.anzhilai.core.base.BaseModel;
+import com.anzhilai.core.base.BaseModelController;
+import com.anzhilai.core.base.BaseUser;
+import com.anzhilai.core.base.XController;
 import com.anzhilai.core.database.AjaxResult;
 import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.framework.ModalController;
@@ -89,7 +92,7 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
             return AjaxResult.Error("用户未设置角色,请联系管理员").ToJson();
         }
         mu.put(JSXX角色信息.F_数据权限, user.Get数据权限());
-        mu.put("组织机构", user.Get组织机构());
+        mu.put("组织部门", user.Get组织部门());
         result.AddValue(JSXX角色信息.F_功能列表, user.Get功能列表());
         String json = result.ToJson();
         RYXX人员信息 bu = (RYXX人员信息) GlobalValues.GetSessionUser();

@@ -157,13 +157,13 @@ public class RYXX人员信息 extends BaseUser {
         return Get人员角色().功能列表;
     }
 
-    ZZBM组织部门 zzjg;
+    ZZBM组织部门 zzbm;
 
-    public ZZBM组织部门 Get组织机构() throws Exception {
-        if (zzjg == null) {
-            zzjg = ZZBM组织部门.GetObjectById(ZZBM组织部门.class, this.组织部门id);
+    public ZZBM组织部门 Get组织部门() throws Exception {
+        if (zzbm == null) {
+            zzbm = ZZBM组织部门.GetObjectById(ZZBM组织部门.class, this.组织部门id);
         }
-        return zzjg;
+        return zzbm;
     }
 
     public String Get数据权限() throws Exception {
@@ -211,7 +211,7 @@ public class RYXX人员信息 extends BaseUser {
         }
 
         @XQuery(column = RYXX人员信息.F_组织部门id, type = XQuery.QueryType.noEqual)
-        public String 组织机构idNoEqual;
+        public String 组织部门idNoEqual;
         @XQuery
         public String 姓名;
         @XQuery
@@ -219,9 +219,9 @@ public class RYXX人员信息 extends BaseUser {
         @XQuery(type = XQuery.QueryType.equal)
         public String OpenID;
         @XQuery(table = ZZBM组织部门.F_TableName, column = ZZBM组织部门.F_TreePath, type = XQuery.QueryType.leftlike)
-        public String 组织机构TreePath;
+        public String 组织部门TreePath;
         @XQuery(type = XQuery.QueryType.equal)
-        public String 组织机构id;
+        public String 组织部门id;
         @XQuery(type = XQuery.QueryType.equal)
         public String 人员角色id;
         @XQuery(type = XQuery.QueryType.equal)
@@ -238,7 +238,7 @@ public class RYXX人员信息 extends BaseUser {
         Map<String, String> m = new HashMap<>();
         m.put(F_foreignKey, F_组织部门id);
         m.put(F_foreignTable, ZZBM组织部门.F_TableName);
-        m.put(F_columnField, ZZBM组织部门.F_机构名称);
+        m.put(F_columnField, ZZBM组织部门.F_组织名称);
         list.add(m);
         return list;
     }
@@ -262,7 +262,7 @@ public class RYXX人员信息 extends BaseUser {
         su.AppendColumn(RYXX人员信息.F_TableName, F_家庭地址);
         su.AppendColumn(RYXX人员信息.F_TableName, F_员工工号);
         su.AppendColumn(RYXX人员信息.F_TableName, F_是否锁定);
-        su.AppendColumn(ZZBM组织部门.F_TableName, ZZBM组织部门.F_机构名称);
+        su.AppendColumn(ZZBM组织部门.F_TableName, ZZBM组织部门.F_组织名称);
         su.AppendColumn(JSXX角色信息.F_TableName, JSXX角色信息.F_角色名称);
         su.From(RYXX人员信息.F_TableName);
         su.InnerJoin(ZZBM组织部门.F_TableName, ZZBM组织部门.F_id, RYXX人员信息.F_组织部门id);
@@ -275,7 +275,7 @@ public class RYXX人员信息 extends BaseUser {
         SaveTestData(Data_Admin, "123456", "");
     }
 
-    public void SaveTestData(String name, String pwd, String 机构id) throws Exception {
+    public void SaveTestData(String name, String pwd, String 组织id) throws Exception {
         RYXX人员信息 j = RYXX人员信息.GetObjectById(RYXX人员信息.class, name);
         if (j == null) {
             j = new RYXX人员信息();
@@ -283,7 +283,7 @@ public class RYXX人员信息 extends BaseUser {
             j.姓名 = name;
             j.登录账号 = name;
             j.登录密码 = BaseUser.FormatPwd(pwd);
-            j.组织部门id = 机构id;
+            j.组织部门id = 组织id;
             j.Save();
         }
     }

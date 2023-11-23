@@ -11,12 +11,12 @@ public class ZZBM组织部门 extends BaseModelTree {
     public final static String F_TableName = "ZZBM组织部门";
 
     @XColumn
-    public String 机构名称;
-    public final static String F_机构名称 = "机构名称";
+    public String 组织名称;
+    public final static String F_组织名称 = "组织名称";
 
     @Override
     public String GetNameField() {
-        return F_机构名称;
+        return F_组织名称;
     }
 
     @XColumn(foreignTable = RYXX人员信息.F_TableName)
@@ -27,13 +27,13 @@ public class ZZBM组织部门 extends BaseModelTree {
     public String 审核人ids;
     public final static String F_审核人ids = "审核人ids";
 
-    public enum E_机构类型 {
+    public enum E_组织类型 {
         公司, 部门
     }
 
     @XColumn
-    public String 机构类型;
-    public final static String F_机构类型 = "机构类型";
+    public String 组织类型;
+    public final static String F_组织类型 = "组织类型";
 
     @XColumn
     public String 联系电话;
@@ -66,8 +66,8 @@ public class ZZBM组织部门 extends BaseModelTree {
     @Override
     public String SaveValidate() throws Exception {
         String s = "";
-        if (StrUtil.isEmpty(this.机构名称)) {
-            s += "机构名称不能为空";
+        if (StrUtil.isEmpty(this.组织名称)) {
+            s += "组织名称不能为空";
         }
         return s;
     }
@@ -76,7 +76,7 @@ public class ZZBM组织部门 extends BaseModelTree {
     public String DeleteValidate() throws Exception {
         String str = "";
         if (this.HasOtherTableValue(RYXX人员信息.F_TableName, RYXX人员信息.F_组织部门id)) {
-            str = "该机构还存在人员,无法删除";
+            str = "该组织还存在人员,无法删除";
         }
         return str;
     }
@@ -90,15 +90,15 @@ public class ZZBM组织部门 extends BaseModelTree {
         @XQuery(type = XQuery.QueryType.equal)
         public String 负责人id;
         @XQuery(type = XQuery.QueryType.equal)
-        public String 机构类型;
+        public String 组织类型;
         @XQuery(type = XQuery.QueryType.like)
         public String 负责人ids;
         @XQuery(column = ZZBM组织部门.F_id, type = XQuery.QueryType.noEqual)
         public String idNoEqual;
-        @XQuery(column = ZZBM组织部门.F_机构名称, type = XQuery.QueryType.like)
-        public String 机构名称;
+        @XQuery(column = ZZBM组织部门.F_组织名称, type = XQuery.QueryType.like)
+        public String 组织名称;
         @XQuery(column = ZZBM组织部门.F_TreePath, type = XQuery.QueryType.leftlike)
-        public String 组织机构TreePath;
+        public String 组织部门TreePath;
 
     }
 
@@ -117,12 +117,12 @@ public class ZZBM组织部门 extends BaseModelTree {
         su.AppendColumn(ZZBM组织部门.F_TableName, F_TreeOrder);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_TreeName);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_IsTreeLeaf);
-        su.AppendColumn(ZZBM组织部门.F_TableName, F_机构名称);
+        su.AppendColumn(ZZBM组织部门.F_TableName, F_组织名称);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_负责人id);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_审核人ids);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_联系电话);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_详细地址);
-        su.AppendColumn(ZZBM组织部门.F_TableName, F_机构类型);
+        su.AppendColumn(ZZBM组织部门.F_TableName, F_组织类型);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_法定代表人);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_开户行);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_银行账号);

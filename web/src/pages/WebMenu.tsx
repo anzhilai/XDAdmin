@@ -27,7 +27,7 @@ export default [
         children: [
             {
                 name: '组织部门',
-                path: 'zzjg',
+                path: 'zzbm',
                 icon: 'DesktopOutlined',
                 component: <组织部门/>
             }, {

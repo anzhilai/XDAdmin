@@ -327,7 +327,7 @@ export default class 角色权限 extends XBasePage {
         }} items={["全部数据", "所属部门", "个人数据", "自定义"]} parent={() => this.form}/>
         <XSelectList visible={data.数据权限 == "自定义"} ref={e => this.自定义部门 = e} labelWidth={lableWidth}
                      field={"自定义部门"}
-                     label={"自定义部门"} dataSourceUrl={"zzbm/querylist"} isMultiSelect={true} searchField={"机构名称"}
+                     label={"自定义部门"} dataSourceUrl={"zzbm/querylist"} isMultiSelect={true} searchField={"组织名称"}
                      displayField={"TreePath"} parent={() => this.form}/>
       </XGrid>
     </XForm>);

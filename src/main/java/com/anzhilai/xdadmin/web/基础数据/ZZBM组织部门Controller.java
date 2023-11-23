@@ -22,10 +22,10 @@ import java.util.Map;
 @RequestMapping("/zzbm")
 public class ZZBM组织部门Controller<T extends ZZBM组织部门> extends BaseModelController<ZZBM组织部门> {
 
-    @XController(name = "机构和用户列表")
+    @XController(name = "组织和用户列表")
     @RequestMapping(value = "/querylistanduser", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String 机构和用户列表(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+    public String 组织和用户列表(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         ZZBM组织部门 model = GetClass().newInstance();
         BaseQuery query = model.CreateQueryModel().InitFromRequest(request);
         DataTable dt = model.GetList(query);
@@ -35,12 +35,12 @@ public class ZZBM组织部门Controller<T extends ZZBM组织部门> extends Base
         if (query.Parentids != null) {
             RYXX人员信息 ry = new RYXX人员信息();
             RYXX人员信息.QueryModel queryModel = (RYXX人员信息.QueryModel) ry.CreateQueryModel();
-            for (String 组织机构id : query.Parentids) {
-                queryModel.组织机构id = 组织机构id;
+            for (String 组织部门id : query.Parentids) {
+                queryModel.组织部门id = 组织部门id;
                 queryModel.hasDataRight = query.hasDataRight;
                 DataTable dt2 = ry.GetList(queryModel);
                 for (Map<String, Object> obj : dt2.Data) {
-                    obj.put(ZZBM组织部门.F_Parentid, 组织机构id);
+                    obj.put(ZZBM组织部门.F_Parentid, 组织部门id);
                     obj.put("类型", "人员信息");
                     obj.put(ZZBM组织部门.F_IsTreeLeaf, true);
                     dt.Data.add(obj);
