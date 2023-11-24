@@ -47,18 +47,16 @@ export default class 登录 extends XBasePage {
   render() {
     let title = window.config.name;
     return <DocumentTitle title={title}>
-      <XGrid backgroundImage={"./img/loginback.jpg"} rowsTemplate={["auto", "1fr", "500px", "1fr"]}
+      <XGrid backgroundImage={"./img/loginback.png"} rowsTemplate={["auto", "1fr", "500px", "1fr"]}
              justifyContent={"center"}>
         <XFlex justifyContent={"center"} backgroundImage={"./img/loginTitleBack.svg"}>
           <span style={{color: "white", height: 40, lineHeight: "40px", fontSize: 20}}> {title}</span>
         </XFlex>
         <div/>
         <XGrid backgroundColor={"var(--xdtheme-default-login-backcolor-op)"} boxStyle={{borderRadius: "27px"}}
-               alignItems={"center"} justifyItems={"center"} columnsTemplate={["1fr", "520px"]}>
-          <XFlex paddingTRBL={"0px 10px 0px 60px"}>
-            <img src={"./img/loginbodyimg.png"} width={"520px"}/>
-          </XFlex>
-          <XFlex contentVAlign={XBaseStyle.Align.center} paddingTRBL={"30px 20px 0px 90px"}>
+               alignItems={"center"} justifyItems={"center"} columnsTemplate={["600px", "520px"]}>
+          <div></div>
+          <XFlex contentVAlign={XBaseStyle.Align.center} paddingTRBL={"0px 20px 0px 90px"}>
             <XForm inited={(v) => this.loginForm = v}/>
             <XGrid justifyContent={"center"} rowGap={"20px"}
                    rowsTemplate={["20px", "46px", "auto", "auto", "20px"]} boxStyle={{
