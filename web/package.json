@@ -17,7 +17,7 @@
     "react-router-dom": "^6.8.0",
     "antd-mobile": "^5.22.0",
     "styled-components": "^5.3.6",
-    "xdcorelib": "^1.1.9"
+    "xdcorelib": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
