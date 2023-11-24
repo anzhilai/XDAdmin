@@ -5,8 +5,7 @@
   "description": "web",
   "scripts": {
     "start": "webpack serve --open --port 18080",
-    "build": "webpack --env=web",
-    "install": "yarn install"
+    "build": "webpack --env=web"
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
