@@ -16,7 +16,7 @@ import {
 } from "xdcorelib";
 
 //@menu 组织部门
-export default class 组织架构 extends XBasePage {
+export default class 组织部门 extends XBasePage {
     static operations = {
         编辑: true,
     };
@@ -112,7 +112,7 @@ export default class 组织架构 extends XBasePage {
                             visible={false}/>
                 </XGrid>
             </XForm>);
-        XModal.ModalShow("单位信息", () => {
+        XModal.ModalShow("组织信息", () => {
             return this.SaveFormData(this.form, "zzbm/save", this.table组织部门);
         }, Ele, '80vh',);
     }

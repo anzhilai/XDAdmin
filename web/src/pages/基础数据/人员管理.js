@@ -84,7 +84,7 @@ export default class 人员管理 extends XBasePage {
         <XInput isRequired={true} labelWidth={lableWidth} field={"组织名称"} parent={() => this.form}/>
       </XGrid>
     </XForm>);
-    XModal.ModalShow("单位信息", () => {
+    XModal.ModalShow("组织信息", () => {
       return this.SaveFormData(this.form, "zzbm/save", this.table组织部门);
     }, Ele, "80vh");
   }
