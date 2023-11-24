@@ -381,9 +381,7 @@
         <dependency>
             <groupId>com.anzhilai</groupId>
             <artifactId>XDCore</artifactId>
-            <scope>system</scope>
             <version>1.0</version>
-            <systemPath>${project.basedir}/lib/XDCore-1.0.jar</systemPath>
         </dependency>
     </dependencies>
 
