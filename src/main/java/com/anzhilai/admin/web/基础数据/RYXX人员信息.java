@@ -117,9 +117,14 @@ public class RYXX人员信息 extends BaseUser {
     @XColumn(text = true)
     public String 家庭地址;
     public final static String F_家庭地址 = "家庭地址";
+
     @XColumn
     public String 身份证号;
     public final static String F_身份证号 = "身份证号";
+
+    @XColumn
+    public String OpenID;
+    public final static String F_OpenID = "OpenID";
 
 
     @Override
