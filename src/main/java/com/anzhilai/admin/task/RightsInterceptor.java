@@ -1,4 +1,4 @@
-package com.anzhilai.xdadmin.task;
+package com.anzhilai.admin.task;
 
 import com.anzhilai.core.base.BaseUser;
 import com.anzhilai.core.base.XController;

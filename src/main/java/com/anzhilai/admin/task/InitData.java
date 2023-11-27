@@ -1,11 +1,11 @@
-package com.anzhilai.xdadmin.task;
+package com.anzhilai.admin.task;
 
 import com.anzhilai.core.base.BaseModel;
 import com.anzhilai.core.database.SqlCache;
 import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.toolkit.LogUtil;
 import com.anzhilai.core.toolkit.PathUtil;
-import com.anzhilai.xdadmin.web.系统管理.XTPZ系统配置;
+import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

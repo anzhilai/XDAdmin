@@ -1,4 +1,4 @@
-package com.anzhilai.xdadmin.web.基础数据;
+package com.anzhilai.admin.web.基础数据;
 
 import com.anzhilai.core.base.*;
 import com.anzhilai.core.database.DataTable;

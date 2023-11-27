@@ -1,4 +1,4 @@
-package com.anzhilai.xdadmin;
+package com.anzhilai.admin;
 
 import com.anzhilai.core.database.SqlInfo;
 import com.anzhilai.core.framework.BaseApplication;

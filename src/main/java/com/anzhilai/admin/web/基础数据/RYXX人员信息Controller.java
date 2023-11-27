@@ -1,4 +1,4 @@
-package com.anzhilai.xdadmin.web.基础数据;
+package com.anzhilai.admin.web.基础数据;
 
 import com.anzhilai.core.base.BaseModel;
 import com.anzhilai.core.base.BaseModelController;
@@ -9,8 +9,8 @@ import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.framework.ModalController;
 import com.anzhilai.core.toolkit.RequestUtil;
 import com.anzhilai.core.toolkit.StrUtil;
-import com.anzhilai.xdadmin.web.系统管理.XTPZ系统配置;
-import com.anzhilai.xdadmin.web.系统管理.XTRZ系统日志;
+import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
+import com.anzhilai.admin.web.系统管理.XTRZ系统日志;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

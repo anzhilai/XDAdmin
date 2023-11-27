@@ -1,4 +1,4 @@
-package com.anzhilai.xdadmin.web.系统管理;
+package com.anzhilai.admin.web.系统管理;
 
 import com.anzhilai.core.base.BaseModelController;
 import com.anzhilai.core.base.XController;
