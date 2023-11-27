@@ -15,6 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.List;
 
 @Repository
 @XInterceptor(priority = 1)
@@ -30,12 +31,13 @@ public class RightsInterceptor extends HandlerInterceptorAdapter {
         BaseUser user = BaseUser.GetUserByToken(token);
         GlobalValues.SetSessionUser(user);
         if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = ((HandlerMethod) handler);
+            Class<?> beanType = handlerMethod.getBeanType();//类名
+            Method method = handlerMethod.getMethod();//方法名
             boolean login = true;
             if (SqlCache.urlRightMap.containsKey(url)) {
                 login = SqlCache.urlRightMap.get(url);
             } else {
-                Method method = ((HandlerMethod) handler).getMethod();
-                Class<?> beanType = ((HandlerMethod) handler).getBeanType();
                 XController methodProps = method.getAnnotation(XController.class);//取出接口方法的注解
                 XController controllerProps = beanType.getAnnotation(XController.class);
                 if (methodProps != null) {
@@ -55,6 +57,13 @@ public class RightsInterceptor extends HandlerInterceptorAdapter {
                 } else {
                     if (user.IsLock()) {
                         throw new XException("用户已锁定,请联系管理员");
+                    }
+                    List<String> list = user.GetApiList();
+                    if (list != null && list.size() > 0) {//API权限判断
+                        String apiId = beanType.getName() + "#" + method.getName();
+                        if (!list.contains(apiId)) {
+                            throw new XException("该请求没有权限，不能调用API");
+                        }
                     }
                 }
             } else {
