@@ -1,5 +1,6 @@
 package com.anzhilai.admin.web.基础数据;
 
+import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
 import com.anzhilai.core.base.*;
 import com.anzhilai.core.database.DataTable;
 import com.anzhilai.core.database.SqlInfo;
@@ -181,7 +182,11 @@ public class RYXX人员信息 extends BaseUser {
     @Override
     public void Save() throws Exception {
         if (StrUtil.isEmpty(this.登录密码)) {
-            this.登录密码 = (RYXX人员信息.FormatPwd("123456"));
+            String 默认密码 = XTPZ系统配置.Get系统配置("系统配置", "用户默认密码", "123456", "用户默认密码");
+            if (StrUtil.isEmpty(默认密码)) {
+                默认密码 = "123456";
+            }
+            this.登录密码 = RYXX人员信息.FormatPwd(默认密码);
         }
         if (StrUtil.isEmpty(this.登录账号)) {
             this.登录账号 = null;
