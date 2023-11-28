@@ -25,11 +25,6 @@ public class XTPZ系统配置 extends BaseModel {
     public String 备注;
     public final static String F_备注 = "备注";
 
-    public enum  E_是否{
-        是,否
-    }
-
-
     @Override
     public void Save() throws Exception {
         super.Save();
@@ -75,7 +70,7 @@ public class XTPZ系统配置 extends BaseModel {
         if (xtpz == null) {
             xtpz = new XTPZ系统配置();
             xtpz.id = "内部配置" + pzx;
-            xtpz.配置类型="系统配置";
+            xtpz.配置类型 = "系统配置";
             xtpz.配置项 = pzx;
         }
         xtpz.配置值 = value;
@@ -91,6 +86,29 @@ public class XTPZ系统配置 extends BaseModel {
             xtpz.配置类型 = pzlx;
             xtpz.配置值 = value;
             xtpz.Save();
+        }
+        return xtpz.配置值;
+    }
+
+    public static String Get系统配置(String pzlx, String pzx, String defaultValue, String 备注) throws Exception {
+        return Get系统配置(pzlx, pzx, defaultValue, 备注, false);
+    }
+
+    public static String Get系统配置(String pzlx, String pzx, String defaultValue, String 备注, boolean update) throws Exception {
+        XTPZ系统配置 xtpz = GetObjectById(XTPZ系统配置.class, pzlx + pzx);
+        if (xtpz == null) {
+            xtpz = new XTPZ系统配置();
+            xtpz.id = pzlx + pzx;
+            xtpz.配置项 = pzx;
+            xtpz.配置类型 = pzlx;
+            xtpz.配置值 = defaultValue;
+            xtpz.备注 = 备注;
+            xtpz.Save();
+        } else {
+            if (update) {
+                xtpz.配置值 = defaultValue;
+                xtpz.UpdateFields(F_配置值);
+            }
         }
         return xtpz.配置值;
     }

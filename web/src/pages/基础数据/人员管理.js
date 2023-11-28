@@ -138,7 +138,7 @@ export default class 人员管理 extends XBasePage {
                     showButtons={false} showSearch={false} isTree={true} filterData={this.props.filterData}
                     onSelectChange={(row) => {
                       this.select组织部门 = row;
-                      this.table.Refresh({组织机构TreePath: row.TreePath});
+                      this.table.Refresh({组织部门TreePath: row.TreePath});
                     }} draggable={true}
                     visibleColumns={this.state.visibleColumns1}
                     extraButtons={(<XFlex contentHAlign={"start"}>
