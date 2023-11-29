@@ -7,7 +7,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:sqlite:./warehouse_test.db
+    url: jdbc:sqlite:./test.db
     username:
     password:
 #    url: jdbc:mysql://127.0.0.1:3306/xdadmin?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
@@ -35,7 +35,7 @@ spring:
     show-sql: true
     generate-ddl: true
     database: default
-    database-platform: org.hibernate.dialect.MySQL55Dialect
+    database-platform: com.anzhilai.core.database.sqlite.SQLiteDialect
 #    database-platform: org.hibernate.dialect.MySQL55Dialect
     hibernate:
       ddl-auto: create
