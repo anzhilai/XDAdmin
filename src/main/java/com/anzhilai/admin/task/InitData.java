@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+//@domain RYXX人员信息
 @Component
 public class InitData implements CommandLineRunner {
     private static Logger log = LogUtil.getLogger(InitData.class);
