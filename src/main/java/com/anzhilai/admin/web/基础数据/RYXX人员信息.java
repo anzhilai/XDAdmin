@@ -233,7 +233,7 @@ public class RYXX人员信息 extends BaseUser {
         @XQuery(type = XQuery.QueryType.equal)
         public String 组织部门id;
         @XQuery(type = XQuery.QueryType.equal)
-        public String 人员角色id;
+        public String 角色信息id;
         @XQuery(type = XQuery.QueryType.equal)
         public String 职级信息id;
     }

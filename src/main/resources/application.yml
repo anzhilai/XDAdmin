@@ -51,9 +51,6 @@ spring:
       max-request-size: 1024000MB
 
 common-config:
-  Version: "1.0.0"
-  startAliIot: false
-  startMqtt: false
-  startWeixin: false
-  UploadFilePath: "uploadFiles"
-  TempFilePath: "tempFiles"
+  version: "1.0.0"
+  uploadFilePath: "uploadFiles"
+  tempFilePath: "tempFiles"
