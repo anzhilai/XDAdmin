@@ -7,12 +7,12 @@ import React from "react";
 export default class 登录 extends XBasePage {
 
   static propTypes = {
-    ...super.propTypes,
-    valiateUser: false,
+    ...super.propTypes
   };
 
   static defaultProps = {
-    ...super.defaultProps
+    ...super.defaultProps,
+      valiateUser: false,
   };
 
   constructor(props) {
