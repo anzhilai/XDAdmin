@@ -1,4 +1,4 @@
-import {XBasePage, XBaseStyle, XButton, XCheckGroup, XFlex, XForm, XGrid, XInput, XInputPwd, XMessage} from "xdcorelib";
+import {XBasePage, XBaseStyle, XButton, XCheckGroup, XFlex, XForm, XGrid, XInput, XInputPwd, XMessage} from "xdcoreweb";
 import {CopyrightOutlined} from "@ant-design/icons";
 import DocumentTitle from "react-document-title";
 import React from "react";

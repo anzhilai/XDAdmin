@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import {XBasePage, XCard, XTableGrid} from "xdcorelib";
+import {XBasePage, XCard, XTableGrid} from "xdcoreweb";
 
 //@menu 日志查看
 export default class 系统日志 extends XBasePage {

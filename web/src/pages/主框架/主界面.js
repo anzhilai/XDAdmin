@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Outlet} from "react-router-dom";
 import DocumentTitle from 'react-document-title';
 import {MenuFoldOutlined, MenuUnfoldOutlined,} from "@ant-design/icons";
-import {XBaseStyle, XBaseApp, XCard, XButton, XText, XMenu, XFlex, XModal, XGrid, XImage, XBasePage, XPopover, XIcon} from "xdcorelib";
+import {XBaseStyle, XBaseApp, XCard, XButton, XText, XMenu, XFlex, XModal, XGrid, XImage, XBasePage, XPopover, XIcon} from "xdcoreweb";
 import 用户详情 from "@/pages/主框架/用户详情";
 
 //@menu 人员管理

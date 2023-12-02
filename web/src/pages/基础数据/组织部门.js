@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {XModal, XGrid, XButton, XInput, XCard, XTableGrid, XForm, XBasePage, XSelectTree, XSelectList, XFlex, XBaseStyle} from "xdcorelib";
+import {XModal, XGrid, XButton, XInput, XCard, XTableGrid, XForm, XBasePage, XSelectTree, XSelectList, XFlex, XBaseStyle} from "xdcoreweb";
 
 //@menu 组织部门
 export default class 组织部门 extends XBasePage {

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import {XBasePage, XButton, XCard, XForm, XGrid, XInput, XTabs, XMessage, XRadioGroup, XModal, XText} from "xdcorelib";
+import {XBasePage, XButton, XCard, XForm, XGrid, XInput, XTabs, XMessage, XRadioGroup, XModal, XText} from "xdcoreweb";
 
 //@menu 人员管理
 export default class 用户详情 extends XBasePage {

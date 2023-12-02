@@ -1,5 +1,5 @@
 import React from "react";
-import {XModal, XBasePage, XForm, XGrid, XCard, XTableGrid, XButton, XCheckGroup, XMessage, XTools, XInput, XRadioGroup, XSelectList, XFlex, XInputTextarea} from "xdcorelib";
+import {XModal, XBasePage, XForm, XGrid, XCard, XTableGrid, XButton, XCheckGroup, XMessage, XTools, XInput, XRadioGroup, XSelectList, XFlex, XInputTextarea} from "xdcoreweb";
 
 //@menu 角色权限
 export default class 角色权限 extends XBasePage {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {XCard} from "xdcorelib";
+import {XCard} from "xdcoreweb";
 
 let Result = XCard.Result;
 

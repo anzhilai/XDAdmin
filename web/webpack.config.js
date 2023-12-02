@@ -8,12 +8,12 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CompressionPlugin = require('compression-webpack-plugin');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const WebpackBar = require('webpackbar');
-const xdcore = require("xdcorelib/webpack.xdcore");
+const xdcore = require("xdcoreweb/webpack.xdcore");
 const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let input = "./src/index.tsx";
-let xdcorelib = "node_modules/xdcorelib/dist";
+let xdcoreweb = "node_modules/xdcoreweb/dist";
 module.exports = (env) => {
     if (env && env.web) {//build
         const config = {
@@ -40,7 +40,7 @@ module.exports = (env) => {
                 new CopyWebpackPlugin({
                     patterns: [
                         {from: "public", to: ""},
-                        {from: xdcorelib, to: "xdcore"},
+                        {from: xdcoreweb, to: "xdcore"},
                     ]
                 }),
                 new WebpackBar(),
@@ -94,7 +94,7 @@ module.exports = (env) => {
                 new CopyWebpackPlugin({
                     patterns: [
                         {from: "public", to: ""},
-                        {from: xdcorelib, to: "xdcore"},
+                        {from: xdcoreweb, to: "xdcore"},
                     ]
                 }),
                 new WebpackBar(),

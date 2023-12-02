@@ -5,7 +5,7 @@ import WebMenus from "./pages/WebMenu";
 import 登录 from "./pages/主框架/登录";
 import 主界面 from "./pages/主框架/主界面";
 import NoFoundPage from "./404";
-import {XBaseApp} from "xdcorelib";
+import {XBaseApp} from "xdcoreweb";
 
 //@menu 人员管理
 ReactDOM.createRoot(document.getElementById("root")).render(

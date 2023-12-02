@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import {XUpload, XBasePage, XButton, XCard, XFlex, XDivider, XForm, XGrid, XInput, XModal, XPopConfirm, XRadioGroup, XTableGrid, XMessage} from "xdcorelib";
+import {XUpload, XBasePage, XButton, XCard, XFlex, XDivider, XForm, XGrid, XInput, XModal, XPopConfirm, XRadioGroup, XTableGrid, XMessage} from "xdcoreweb";
 
 //@menu 系统配置
 export default class 系统配置 extends XBasePage {
