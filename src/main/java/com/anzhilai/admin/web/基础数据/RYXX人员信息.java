@@ -129,7 +129,7 @@ public class RYXX人员信息 extends BaseUser {
 
 
     @Override
-    public List<Map> GetUniqueFields() {
+    public List<Map> GetListUniqueFieldAndValues() {
         List<Map> l = new ArrayList<>();
         Map m = new HashMap();
         m.put(F_登录账号, this.登录账号);

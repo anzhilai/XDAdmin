@@ -4,6 +4,7 @@ import com.anzhilai.core.base.BaseModelController;
 import com.anzhilai.core.base.BaseQuery;
 import com.anzhilai.core.base.XController;
 import com.anzhilai.core.database.DataTable;
+import com.anzhilai.core.toolkit.TypeConvert;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class ZZBM组织部门Controller<T extends ZZBM组织部门> extends Base
     @RequestMapping(value = "/querylistanduser", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String 组织和用户列表(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-        ZZBM组织部门 model = GetClass().newInstance();
+        ZZBM组织部门 model =  TypeConvert.CreateNewInstance(GetClass());
         BaseQuery query = model.CreateQueryModel().InitFromRequest(request);
         DataTable dt = model.GetList(query);
         for(Map m :dt.Data){

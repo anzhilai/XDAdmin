@@ -6,6 +6,7 @@ import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.toolkit.LogUtil;
 import com.anzhilai.core.toolkit.PathUtil;
 import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
+import com.anzhilai.core.toolkit.TypeConvert;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -28,8 +29,8 @@ public class InitData implements CommandLineRunner {
             XTPZ系统配置.Save系统配置("是否初始化", "是");
             for (String c : SqlCache.hashMapClasses.keySet()) {
                 try {
-                    Class<?> clazz = SqlCache.hashMapClasses.get(c);
-                    BaseModel model = (BaseModel) clazz.newInstance();
+                    Class<BaseModel> clazz = SqlCache.hashMapClasses.get(c);
+                    BaseModel model =  TypeConvert.CreateNewInstance(clazz);
                     model.InitTestData();
                 } catch (Exception e) {
                     e.printStackTrace();
