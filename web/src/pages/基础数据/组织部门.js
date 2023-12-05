@@ -40,7 +40,7 @@ export default class 组织部门 extends XBasePage {
             {
                 field: "审核人",
                 foreignKey: "审核人ids",
-                foreignField: "姓名",
+                originField: "姓名",
                 title: "审核人",
                 editorRender: (text, record) => (
                     <XSelectList dataSourceUrl={"ryxx/querylist"} displayField={"姓名"} isMultiSelect={true}
