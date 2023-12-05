@@ -114,7 +114,6 @@ public class ZZBM组织部门 extends BaseModelTree {
         su.AppendColumn(ZZBM组织部门.F_TableName, F_Parentid);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_TreePath);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_TreeLevel);
-        su.AppendColumn(ZZBM组织部门.F_TableName, F_TreeOrder);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_TreeName);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_IsTreeLeaf);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_组织名称);
