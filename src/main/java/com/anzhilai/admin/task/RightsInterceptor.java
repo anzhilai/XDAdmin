@@ -2,7 +2,7 @@ package com.anzhilai.admin.task;
 
 import com.anzhilai.core.base.BaseUser;
 import com.anzhilai.core.base.XController;
-import com.anzhilai.core.base.XException;
+import com.anzhilai.core.framework.XException;
 import com.anzhilai.core.base.XInterceptor;
 import com.anzhilai.core.database.SqlCache;
 import com.anzhilai.core.framework.GlobalValues;
