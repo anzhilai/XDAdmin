@@ -42,7 +42,7 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
         String 验证码key = RequestUtil.GetParameter(request, "验证码key");
         if (StrUtil.isNotEmpty(验证码key)) {
             if (!ModalController.DecryptVerifyCode(验证码key).equalsIgnoreCase(验证码)) {
-                return AjaxResult.Error("验证码不正确").ToJson();
+                return AjaxResult.False("验证码不正确").ToJson();
             }
         }
         String userName = RequestUtil.GetParameter(request, RYXX人员信息.F_登录账号);
@@ -53,10 +53,10 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
             user = RYXX人员信息.GetObjectByFieldValue(GetClass(), RYXX人员信息.F_手机号码, userName);
         }
         if (user == null) {
-            return AjaxResult.Error("用户未注册，请先注册用户").ToJson();
+            return AjaxResult.False("用户未注册，请先注册用户").ToJson();
         }
         if (!user.登录密码.equals(BaseUser.FormatPwd(userPass))) {
-            return AjaxResult.Error("密码错误，请重新输入").ToJson();
+            return AjaxResult.False("密码错误，请重新输入").ToJson();
         }
         return LoginOk(user, user.UpdateLoginKey());
     }
@@ -73,7 +73,7 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
                 return LoginOk((RYXX人员信息) user, null);
             }
         }
-        return AjaxResult.Error("无效token").ToJson();
+        return AjaxResult.False("无效token").ToJson();
     }
 
     public static String LoginOk(RYXX人员信息 user, String loginKey) throws Exception {
@@ -83,13 +83,13 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
         }
         String token = BaseUser.GetTokenFromUser(user, loginKey);
         GlobalValues.SetSessionUser(user);
-        AjaxResult result = new AjaxResult();
+        AjaxResult result = AjaxResult.True();
         result.AddValue(BaseUser.F_GatherTOKEN, token);
         Map mu = user.ToMap();
         mu.remove(RYXX人员信息.F_登录密码);
         result.AddValue(BaseUser.F_GatherUser, mu);
         if (StrUtil.isEmpty(user.角色信息id) && StrUtil.isNotEqual(RYXX人员信息.Data_Admin, user.id)) {
-            return AjaxResult.Error("用户未设置角色,请联系管理员").ToJson();
+            return AjaxResult.False("用户未设置角色,请联系管理员").ToJson();
         }
         mu.put(JSXX角色信息.F_数据权限, user.Get数据权限());
         mu.put("组织部门", user.Get组织部门());
@@ -137,10 +137,10 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
                 user.Update(RYXX人员信息.F_登录密码, RYXX人员信息.FormatPwd(newPass));
                 return AjaxResult.True().ToJson();
             } else {
-                return AjaxResult.Error("原密码不正确").ToJson();
+                return AjaxResult.False("原密码不正确").ToJson();
             }
         }
-        return AjaxResult.Error("用户不存在").ToJson();
+        return AjaxResult.False("用户不存在").ToJson();
     }
 
     @XController(name = "重置密码")
@@ -152,7 +152,7 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
             user.Update(RYXX人员信息.F_登录密码, RYXX人员信息.FormatPwd("123456"));
             return AjaxResult.True().ToJson();
         }
-        return AjaxResult.Error("用户不存在").ToJson();
+        return AjaxResult.False("用户不存在").ToJson();
     }
 
 
