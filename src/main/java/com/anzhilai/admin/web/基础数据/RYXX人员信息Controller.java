@@ -6,11 +6,11 @@ import com.anzhilai.core.base.BaseUser;
 import com.anzhilai.core.base.XController;
 import com.anzhilai.core.database.AjaxResult;
 import com.anzhilai.core.framework.GlobalValues;
-import com.anzhilai.core.framework.ModalController;
 import com.anzhilai.core.toolkit.RequestUtil;
 import com.anzhilai.core.toolkit.StrUtil;
 import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
 import com.anzhilai.admin.web.系统管理.XTRZ系统日志;
+import com.anzhilai.core.toolkit.VerifyCodeUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +41,7 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
         String 验证码 = RequestUtil.GetParameter(request, "验证码");
         String 验证码key = RequestUtil.GetParameter(request, "验证码key");
         if (StrUtil.isNotEmpty(验证码key)) {
-            if (!ModalController.DecryptVerifyCode(验证码key).equalsIgnoreCase(验证码)) {
+            if (!VerifyCodeUtil.DecryptVerifyCode(验证码key).equalsIgnoreCase(验证码)) {
                 return AjaxResult.False("验证码不正确").ToJson();
             }
         }

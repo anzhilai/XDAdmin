@@ -2,9 +2,8 @@ package com.anzhilai.admin;
 
 import com.anzhilai.core.database.SqlInfo;
 import com.anzhilai.core.framework.BaseApplication;
-import com.anzhilai.core.framework.CacheValue;
 import com.anzhilai.core.framework.CommonConfig;
-import com.anzhilai.core.framework.SystemSpringConfig;
+import com.anzhilai.core.framework.SpringConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
@@ -24,22 +23,17 @@ public class XDAdminApplication extends BaseApplication implements WebServerFact
         return new String[]{"com.anzhilai"};
     }
 
-    @Override
-    public void ResetCache(SqlInfo su) throws Exception {
-        CacheValue.WatchTableChange(su.CurrentMainTable);
-    }
-
     //上传文件路径
     @Override
     public String GetUploadFilePath() {
-        CommonConfig config = SystemSpringConfig.getBean(CommonConfig.class);
+        CommonConfig config = SpringConfig.getBean(CommonConfig.class);
         return config.getUploadFilePath();
     }
 
     //临时文件路径
     @Override
     public String GetTempFilePath() {
-        CommonConfig config = SystemSpringConfig.getBean(CommonConfig.class);
+        CommonConfig config = SpringConfig.getBean(CommonConfig.class);
         return config.getTempFilePath();
     }
 
