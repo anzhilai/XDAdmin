@@ -41,11 +41,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- 支持JPA（Java Persistence API），包括spring-data-jpa、spring-orm、hibernate。-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+
         <!-- 支持使用 JDBC 访问数据库 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -85,13 +81,6 @@
             <artifactId>spring-test</artifactId>
             <version>5.2.1.RELEASE</version>
             <scope>compile</scope>
-        </dependency>
-
-        <!-- hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.10.Final</version>
         </dependency>
 
 
