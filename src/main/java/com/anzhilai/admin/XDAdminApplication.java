@@ -23,19 +23,6 @@ public class XDAdminApplication extends BaseApplication implements WebServerFact
         return new String[]{"com.anzhilai"};
     }
 
-    //上传文件路径
-    @Override
-    public String GetUploadFilePath() {
-        CommonConfig config = SpringConfig.getBean(CommonConfig.class);
-        return config.getUploadFilePath();
-    }
-
-    //临时文件路径
-    @Override
-    public String GetTempFilePath() {
-        CommonConfig config = SpringConfig.getBean(CommonConfig.class);
-        return config.getTempFilePath();
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(XDAdminApplication.class, args);
