@@ -29,22 +29,6 @@ spring:
       validation-query-timeout: 600
       web-stat-filter:
         enabled: false
-  transaction:
-    rollback-on-commit-failure: true
-  jpa:
-    show-sql: true
-    generate-ddl: true
-    database: default
-    database-platform: com.anzhilai.core.database.sqlite.SQLiteDialect
-#    database-platform: org.hibernate.dialect.MySQL55Dialect
-    hibernate:
-      ddl-auto: create
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties:
-      hibernate:
-        current_session_context_class: thread
   servlet:
     multipart:
       max-file-size: 1024000MB
