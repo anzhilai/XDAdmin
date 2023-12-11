@@ -10,10 +10,6 @@ public class XTPZ系统配置 extends BaseModel {
     public final static String F_TableName = "XTPZ系统配置";
 
     @XColumn
-    public String 配置类型;
-    public final static String F_配置类型 = "配置类型";
-
-    @XColumn
     public String 配置项;
     public final static String F_配置项 = "配置项";
 
@@ -21,9 +17,6 @@ public class XTPZ系统配置 extends BaseModel {
     public String 配置值;
     public final static String F_配置值 = "配置值";
 
-    @XColumn(length = 3000)
-    public String 备注;
-    public final static String F_备注 = "备注";
 
     @Override
     public void Save() throws Exception {
@@ -51,8 +44,6 @@ public class XTPZ系统配置 extends BaseModel {
         su.AppendColumn(XTPZ系统配置.F_TableName, F_id);
         su.AppendColumn(XTPZ系统配置.F_TableName, F_配置项);
         su.AppendColumn(XTPZ系统配置.F_TableName, F_配置值);
-        su.AppendColumn(XTPZ系统配置.F_TableName, F_配置类型);
-        su.AppendColumn(XTPZ系统配置.F_TableName, F_备注);
         su.From(XTPZ系统配置.F_TableName);
         return bq.GetList(su);
     }
@@ -70,7 +61,6 @@ public class XTPZ系统配置 extends BaseModel {
         if (xtpz == null) {
             xtpz = new XTPZ系统配置();
             xtpz.id = "内部配置" + pzx;
-            xtpz.配置类型 = "系统配置";
             xtpz.配置项 = pzx;
         }
         xtpz.配置值 = value;
@@ -83,7 +73,6 @@ public class XTPZ系统配置 extends BaseModel {
             xtpz = new XTPZ系统配置();
             xtpz.id = "内部配置" + pzx;
             xtpz.配置项 = pzx;
-            xtpz.配置类型 = pzlx;
             xtpz.配置值 = value;
             xtpz.Save();
         }
@@ -100,9 +89,7 @@ public class XTPZ系统配置 extends BaseModel {
             xtpz = new XTPZ系统配置();
             xtpz.id = pzlx + pzx;
             xtpz.配置项 = pzx;
-            xtpz.配置类型 = pzlx;
             xtpz.配置值 = defaultValue;
-            xtpz.备注 = 备注;
             xtpz.Save();
         } else {
             if (update) {

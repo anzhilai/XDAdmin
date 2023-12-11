@@ -119,9 +119,6 @@ public class RYXX人员信息 extends BaseUser {
     public String 家庭地址;
     public final static String F_家庭地址 = "家庭地址";
 
-    @XColumn
-    public String 身份证号;
-    public final static String F_身份证号 = "身份证号";
 
     @XColumn
     public String OpenID;
@@ -268,7 +265,6 @@ public class RYXX人员信息 extends BaseUser {
         su.AppendColumn(RYXX人员信息.F_TableName, F_备注);
         su.AppendColumn(RYXX人员信息.F_TableName, F_出生日期);
         su.AppendColumn(RYXX人员信息.F_TableName, F_入职时间);
-        su.AppendColumn(RYXX人员信息.F_TableName, F_身份证号);
         su.AppendColumn(RYXX人员信息.F_TableName, F_家庭地址);
         su.AppendColumn(RYXX人员信息.F_TableName, F_员工工号);
         su.AppendColumn(RYXX人员信息.F_TableName, F_是否锁定);
