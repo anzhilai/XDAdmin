@@ -88,13 +88,14 @@ public class XTPZ系统配置 extends BaseModel {
         if (xtpz == null) {
             xtpz = new XTPZ系统配置();
             xtpz.id = pzlx + pzx;
-            xtpz.配置项 = pzx;
+            xtpz.配置项 = pzlx + "-" + pzx;
             xtpz.配置值 = defaultValue;
             xtpz.Save();
         } else {
             if (update) {
+                xtpz.配置项 = pzlx + "-" + pzx;
                 xtpz.配置值 = defaultValue;
-                xtpz.UpdateFields(F_配置值);
+                xtpz.UpdateFields(F_配置项, F_配置值);
             }
         }
         return xtpz.配置值;
