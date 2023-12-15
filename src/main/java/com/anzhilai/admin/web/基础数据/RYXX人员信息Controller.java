@@ -70,7 +70,8 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
             BaseUser user = BaseUser.GetUserByToken(token);
             if (user != null && user.getClass() == RYXX人员信息.class) {
                 log.info(user.GetLoginName() + "login");
-                return LoginOk((RYXX人员信息) user, null);
+                RYXX人员信息 ryxx = (RYXX人员信息) user;
+                return LoginOk(ryxx, ryxx.loginKey);
             }
         }
         return AjaxResult.False("无效token").ToJson();
