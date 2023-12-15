@@ -13,10 +13,9 @@ public class XTPZ系统配置 extends BaseModel {
     public String 配置项;
     public final static String F_配置项 = "配置项";
 
-    @XColumn(length = 3000)
+    @XColumn(text = true)
     public String 配置值;
     public final static String F_配置值 = "配置值";
-
 
     @Override
     public void Save() throws Exception {
