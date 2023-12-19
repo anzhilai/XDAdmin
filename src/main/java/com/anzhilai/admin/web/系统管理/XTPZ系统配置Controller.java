@@ -21,11 +21,11 @@ import java.util.*;
 
 //@domain XTPZ系统配置Controller
 @Controller
-@XController(name = "系统配置接口", isLogin = XController.LoginState.No)
+@XController(name = "系统配置接口")
 @Transactional(rollbackFor = {Exception.class})
 @RequestMapping("/xtpz")
 public class XTPZ系统配置Controller extends BaseModelController<XTPZ系统配置> {
-    @XController(name = "平台数据同步")
+    @XController(name = "平台数据同步", isLogin = XController.LoginState.No)
     @RequestMapping(value = "/xdevelop", produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String xdevelop(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
