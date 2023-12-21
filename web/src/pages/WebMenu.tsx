@@ -21,8 +21,8 @@ export function ShowDataInfo(data: {}, showDialog = true) {
 
 export default [
     {
-        name: "基础数据",
-        path: "jcsj",
+        name: "用户管理",
+        path: "yhgl",
         icon: "DesktopOutlined",
         children: [
             {
