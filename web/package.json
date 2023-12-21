@@ -1,12 +1,16 @@
 {
-  "name": "web",
+  "name": "xdadminweb",
   "version": "1.0.0",
   "private": true,
-  "description": "web",
   "scripts": {
     "start": "webpack serve --open --port 18080",
     "build": "webpack --env=web"
   },
+  "keywords": ["react","xdadmin"],
+  "author": "anzhilai",
+  "main": "src/xindex.tsx",
+  "module": "src/xindex.tsx",
+  "types": "src/xindex.tsx",
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
     "antd": "^5.1.7",
