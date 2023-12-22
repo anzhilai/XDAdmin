@@ -79,12 +79,17 @@ export default class 系统配置 extends XBasePage {
     }, Ele, '950px',);
   }
 
+  download(){
+
+  }
+
 
   render() {
     return <XCard paddingTRBL={"10px"}>
       <XTableGrid inited={(e) => this.table = e} dataSourceUrl="xtpz/querylist" extraButtons={(
         <XFlex visible={this.CheckOperation("编辑")}>
           <XButton text={"新增"} onClick={() => this.showSaveModal()}/>
+          <XButton text={"下载模型"} onClick={() => this.download()}/>
         </XFlex>)} visibleColumns={this.state.visibleColumns}/>
     </XCard>
   }
