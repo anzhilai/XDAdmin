@@ -1,9 +1,9 @@
 import React from "react";
-import 组织部门 from "@/pages/基础数据/组织部门";
-import 人员管理 from "@/pages/基础数据/人员管理";
-import 角色权限 from "@/pages/基础数据/角色权限";
-import 日志查看 from "@/pages/系统管理/日志查看";
-import 系统配置 from "@/pages/系统管理/系统配置";
+import 组织部门 from "./基础数据/组织部门";
+import 人员管理 from "./基础数据/人员管理";
+import 角色权限 from "./基础数据/角色权限";
+import 日志查看 from "./系统管理/日志查看";
+import 系统配置 from "./系统管理/系统配置";
 
 let appConfig = {rootPath: "./"}
 
