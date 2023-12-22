@@ -152,7 +152,7 @@ export default class 主界面 extends XBasePage {
               <MenuUnfoldOutlined style={{fontSize: "18px", margin: "auto", color: "gray"}}
                                   onClick={() => this.setHideMenu()}/>}
           </XGrid>
-          <XGrid rowsTemplate={["1fr"]} boxStyle={{background: "#E6F4FF"}}>
+          <XGrid rowsTemplate={["1fr"]} paddingTRBL={"10px"} >
             <Outlet/>
           </XGrid>
         </XGrid>
