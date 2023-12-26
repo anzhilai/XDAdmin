@@ -5,10 +5,12 @@ import com.anzhilai.core.database.AjaxResult;
 import com.anzhilai.core.database.SqlCache;
 import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.toolkit.*;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,14 @@ import java.util.*;
 @Transactional(rollbackFor = {Exception.class})
 @RequestMapping("/xtpz")
 public class XTPZ系统配置Controller extends BaseModelController<XTPZ系统配置> {
+
+    @XController(isLogin = XController.LoginState.No)
+    @RequestMapping(value = {"/queryinfo"}, method = {RequestMethod.POST}, produces = {"text/html;charset=UTF-8"})
+    @ResponseBody
+    public String queryinfo(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
+        return super.queryinfo(request,response,session,model);
+    }
+
     @XController(name = "平台数据同步", isLogin = XController.LoginState.No)
     @RequestMapping(value = "/xdevelop", produces = "text/html;charset=UTF-8")
     @ResponseBody
