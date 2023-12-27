@@ -150,7 +150,11 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
     public String resetpassword(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
         RYXX人员信息 user = RYXX人员信息.GetObjectById(GetClass(), RequestUtil.GetString(request, RYXX人员信息.F_id));
         if (user != null) {
-            user.Update(RYXX人员信息.F_登录密码, RYXX人员信息.FormatPwd("123456"));
+            String 默认密码 = XTPZ系统配置.Get系统配置("系统配置", "用户默认密码", "123456", "用户默认密码");
+            if (StrUtil.isEmpty(默认密码)) {
+                默认密码 = "123456";
+            }
+            user.Update(RYXX人员信息.F_登录密码, 默认密码);
             return AjaxResult.True().ToJson();
         }
         return AjaxResult.False("用户不存在").ToJson();

@@ -53,17 +53,19 @@ export default class 人员管理 extends XBasePage {
       }];
   }
 
-  resetPassword() {
+  async resetPassword() {
     let row = this.table.GetSelectRow();
     if (row) {
+      const ret = await this.RequestServer("xtpz/queryinfo", { id: "系统配置用户默认密码" });
       XModal.ModalShow("重置密码", async () => {
-        const retData = await this.RequestServer("ryxx/resetpassword", {id: row.id});
+        const retData = await this.RequestServer("ryxx/resetpassword", { id: row.id });
         if (retData.Success) {
           XMessage.ShowInfo("重置成功");
         } else {
           XMessage.ShowError(retData.Message);
         }
-      }, <div>是否重置密码为：123456</div>, "300px");
+        return true;
+      }, <div>是否重置密码为：{ret?.Value?.配置值 ?? 123456}</div>, "300px");
     }
   }
 
