@@ -31,6 +31,7 @@ public class RightsInterceptor extends HandlerInterceptorAdapter {
         String token = RequestUtil.GetParameter(request, BaseUser.F_GatherTOKEN);
         BaseUser user = BaseUser.GetUserByToken(token);
         GlobalValues.SetSessionUser(user);
+        boolean notneedlogin = false;
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = ((HandlerMethod) handler);
             Class<?> beanType = handlerMethod.getBeanType();//类名
@@ -68,9 +69,10 @@ public class RightsInterceptor extends HandlerInterceptorAdapter {
                     }
                 }
             } else {
-                log.info(RequestUtil.GetClientIpAddress(request) + " notneedlogin " + url);
+                notneedlogin = true;
             }
         }
+        log.info(RequestUtil.GetClientIpAddress(request) + " " + (notneedlogin ? "notneedlogin" : "") + " " + url);
         return super.preHandle(request, response, handler);
     }
 }
