@@ -72,7 +72,8 @@ public class RightsInterceptor extends HandlerInterceptorAdapter {
                 notneedlogin = true;
             }
         }
-        log.info(RequestUtil.GetClientIpAddress(request) + " " + (notneedlogin ? "notneedlogin" : "") + " " + url);
+        log.info(RequestUtil.GetClientIpAddress(request) + " " + (user != null ? user.id : "") + " "
+                + (notneedlogin ? "notneedlogin" : "") + " " + url);
         return super.preHandle(request, response, handler);
     }
 }
