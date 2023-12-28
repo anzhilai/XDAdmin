@@ -6,11 +6,9 @@ import com.anzhilai.core.base.BaseUser;
 import com.anzhilai.core.base.XController;
 import com.anzhilai.core.database.AjaxResult;
 import com.anzhilai.core.framework.GlobalValues;
-import com.anzhilai.core.toolkit.RequestUtil;
-import com.anzhilai.core.toolkit.StrUtil;
+import com.anzhilai.core.toolkit.*;
 import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
 import com.anzhilai.admin.web.系统管理.XTRZ系统日志;
-import com.anzhilai.core.toolkit.VerifyCodeUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -82,7 +81,12 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
         if ("是".equals(是否允许同时登录)) {
             loginKey = null;
         }
-        String token = BaseUser.GetTokenFromUser(user, loginKey);
+        Date expiresAt = null;
+        int JWT登录过期时间 = TypeConvert.ToInteger(XTPZ系统配置.Get系统配置("JWT", "登录过期时间", "0", "天数"));
+        if (JWT登录过期时间 > 0) {
+            expiresAt = DateUtil.AddDay(new Date(), JWT登录过期时间);
+        }
+        String token = BaseUser.GetTokenFromUser(user, loginKey, expiresAt);
         GlobalValues.SetSessionUser(user);
         AjaxResult result = AjaxResult.True();
         result.AddValue(BaseUser.F_GatherTOKEN, token);

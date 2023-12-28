@@ -124,6 +124,9 @@ public class RYXX人员信息 extends BaseUser {
     public String OpenID;
     public final static String F_OpenID = "OpenID";
 
+    @XColumn
+    public String 登录首页;
+    public final static String F_登录首页 = "登录首页";
 
     @Override
     public List<Map> GetListUniqueFieldAndValues() {
@@ -268,6 +271,7 @@ public class RYXX人员信息 extends BaseUser {
         su.AppendColumn(RYXX人员信息.F_TableName, F_家庭地址);
         su.AppendColumn(RYXX人员信息.F_TableName, F_员工工号);
         su.AppendColumn(RYXX人员信息.F_TableName, F_是否锁定);
+        su.AppendColumn(RYXX人员信息.F_TableName, F_登录首页);
         su.AppendColumn(ZZBM组织部门.F_TableName, ZZBM组织部门.F_组织名称);
         su.AppendColumn(JSXX角色信息.F_TableName, JSXX角色信息.F_角色名称);
         su.From(RYXX人员信息.F_TableName);
