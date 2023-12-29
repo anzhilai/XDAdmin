@@ -47,3 +47,5 @@ screenshot
 
 build
 OfficialWeb.iml
+web/dist
+web/types

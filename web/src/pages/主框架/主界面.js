@@ -9,7 +9,7 @@ import 用户详情 from "./用户详情";
 //@menu 人员管理
 export default class 主界面 extends XBasePage {
 
-  static propTypes = {
+  static propTypes = { 
     ...super.propTypes
   };
 
@@ -82,7 +82,7 @@ export default class 主界面 extends XBasePage {
       path.split("/").forEach(str => {
         if (str) {
           _path += "/" + str;
-          if (keys.indexOf(_path) == -1) {
+          if (keys.indexOf(_path) === -1) {
             keys.push(_path);
           }
         }
