@@ -22,7 +22,7 @@ public class XDAdminApplication extends BaseApplication {
 
     @Override
     public void onStartup(ServletContext servletContext) {
-        System.out.println("作为类库时不启动");
+        //作为类库时不启动
     }
 
     public static void main(String[] args) {
