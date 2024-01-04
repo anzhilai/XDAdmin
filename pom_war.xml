@@ -400,7 +400,9 @@
         <dependency>
             <groupId>com.anzhilai</groupId>
             <artifactId>XDCore</artifactId>
-            <version>1.0.2</version>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/XDCore-1.0.jar</systemPath>
         </dependency>
     </dependencies>
 
