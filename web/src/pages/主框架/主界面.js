@@ -24,6 +24,30 @@ export default class 主界面 extends XBasePage {
     window.addEventListener('hashchange', () => this.updateHash());
   }
 
+  async componentDidMount() {
+    super.componentDidMount()
+    this.refreshUser();
+  }
+
+  async refreshUser() {
+    let result = await this.RequestServerPost("ryxx/refresh", {}, false);
+    if (result.Success) {
+      const data = {};
+      data.gatherloginurl = this.GetGatherData()?.gatherloginurl;
+      data.gathertoken = result.Value.gathertoken;
+      data.gatheruser = result.Value.gatheruser;
+      if (result.Value.功能列表) {
+        data.gathermenus = JSON.parse(result.Value.功能列表);
+      } else {
+        data.gathermenus = [];
+      }
+      this.SaveGatherData(data, true);
+      this.setState({MenuData: this.GetCurrentUserMenus(true), refreshUserKey: new Date().getTime()})
+    } else {
+      this.setState({refreshUserKey: new Date().getTime()})
+    }
+  }
+
   updateHash(update = true) {
     let menuChildren = undefined;
     let firstMenu = undefined;
@@ -153,7 +177,7 @@ export default class 主界面 extends XBasePage {
                                   onClick={() => this.setHideMenu()}/>}
           </XGrid>
           <XGrid rowsTemplate={["1fr"]} paddingTRBL={"10px"} >
-            <Outlet/>
+            {this.state.refreshUserKey && <Outlet/>}
           </XGrid>
         </XGrid>
       </XGrid>
