@@ -9,6 +9,8 @@ import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.toolkit.*;
 import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
 import com.anzhilai.admin.web.系统管理.XTRZ系统日志;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +59,7 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
         if (!user.登录密码.equals(BaseUser.FormatPwd(userPass))) {
             return AjaxResult.False("密码错误，请重新输入").ToJson();
         }
-        return LoginOk(user, user.UpdateLoginKey());
+        return LoginOk(user, user.UpdateLoginKey(), true);
     }
 
     @XController(name = "token登录", isLogin = XController.LoginState.No)
@@ -70,13 +72,34 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
             if (user != null && user.getClass() == RYXX人员信息.class) {
                 log.info(user.GetLoginName() + "login");
                 RYXX人员信息 ryxx = (RYXX人员信息) user;
-                return LoginOk(ryxx, ryxx.loginKey);
+                return LoginOk(ryxx, ryxx.loginKey, true);
             }
         }
         return AjaxResult.False("无效token").ToJson();
     }
 
-    public static String LoginOk(RYXX人员信息 user, String loginKey) throws Exception {
+    @XController(name = "刷新用户信息")
+    @RequestMapping(value = "/refresh", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String refresh(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
+        String token = RequestUtil.GetParameter(request, "gathertoken");
+        if (StrUtil.isNotEmpty(token)) {
+            BaseUser user = GlobalValues.GetSessionUser();
+            if (user != null && user.getClass() == RYXX人员信息.class) {
+                RYXX人员信息 ryxx = (RYXX人员信息) user;
+                String loginKey = null;
+                DecodedJWT decodedJWT = BaseUser.DecodedToken(token);
+                Claim claim = decodedJWT.getClaim("loginKey");
+                if (claim != null) {
+                    loginKey = claim.asString();
+                }
+                return LoginOk(ryxx, loginKey, false);
+            }
+        }
+        return AjaxResult.False("无效token").ToJson();
+    }
+
+    public String LoginOk(RYXX人员信息 user, String loginKey, boolean writeLog) throws Exception {
         String 是否允许同时登录 = XTPZ系统配置.Get系统配置("系统配置", "是否允许同时登录", "是");
         if ("是".equals(是否允许同时登录)) {
             loginKey = null;
@@ -99,10 +122,11 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
         mu.put(JSXX角色信息.F_数据权限, user.Get数据权限());
         mu.put("组织部门", user.Get组织部门());
         result.AddValue(JSXX角色信息.F_功能列表, user.Get功能列表());
-        String json = result.ToJson();
-        RYXX人员信息 bu = (RYXX人员信息) GlobalValues.GetSessionUser();
-        XTRZ系统日志.Save系统日志(XTRZ系统日志.RZLX日志类型.通知, bu.姓名 + "登录系统");
-        return json;
+        if (writeLog) {
+            RYXX人员信息 bu = (RYXX人员信息) GlobalValues.GetSessionUser();
+            XTRZ系统日志.Save系统日志(XTRZ系统日志.RZLX日志类型.通知, bu.姓名 + "登录系统");
+        }
+        return result.ToJson();
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
