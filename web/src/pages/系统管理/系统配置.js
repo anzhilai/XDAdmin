@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import {XUpload, XBasePage, XButton, XCard, XFlex, XDivider, XForm, XGrid, XInput, XModal, XPopConfirm, XRadioGroup, XTableGrid, XBaseApp} from "xdcoreweb";
+import {XUpload, XBasePage, XButton, XCard, XFlex, XDivider, XForm, XGrid, XInput, XModal, XPopConfirm, XRadioGroup, XTableGrid, XBaseApp, XString} from "xdcoreweb";
 
 //@menu 系统配置
 export default class 系统配置 extends XBasePage {
@@ -74,7 +74,7 @@ export default class 系统配置 extends XBasePage {
         return false;
       }
       let values = form.GetValues();
-      await pushModalData(values.上传链接, values.截图等待时间);
+      await this.pushModalData(values.上传链接, values.截图等待时间);
       return true;
     }, Ele, '800px',);
   }
@@ -102,10 +102,10 @@ export default class 系统配置 extends XBasePage {
           };
           menuList.push(menu);
           if (item.component) {
-            _this.GotoUrl(item.path);
-            await _this.Sleep(sleepTime);
+            this.GotoUrl(item.path);
+            await this.Sleep(sleepTime);
             let page = XBasePage.GetApp().page;
-            menu.界面原型图 = await XHtml2canvas.GetImageBase64(rootElement, 200, 0, 0);//截图
+            menu.界面原型图 = await XBaseApp.XHtml2canvas.GetImageBase64(rootElement, 200, 0, 0);//截图
             menu.界面原型图 = XString.substring(menu.界面原型图, "data:image/jpeg;base64,".length);
             if (page) {
               menu.菜单描述 = page.props?.desc;
@@ -138,7 +138,7 @@ export default class 系统配置 extends XBasePage {
     let loadedMenuData = await loadMenu(MenuData);
     this.GotoUrl(url);
     let formData = new FormData();
-    formData.append("MenuData", XHtml2canvas.strtoFile(JSON.stringify(loadedMenuData), "MenuData.dat"));
+    formData.append("MenuData", XBaseApp.XHtml2canvas.strtoFile(JSON.stringify(loadedMenuData), "MenuData.dat"));
     let result = await this.RequestUploadFile("xtpz/upload", formData);
     if (result.Success) {
       this.RequestServerPost(pushUrl, { MenuData: result.Value[0] })
