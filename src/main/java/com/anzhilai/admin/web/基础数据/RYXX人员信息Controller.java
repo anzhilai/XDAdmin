@@ -9,6 +9,8 @@ import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.toolkit.*;
 import com.anzhilai.admin.web.系统管理.XTPZ系统配置;
 import com.anzhilai.admin.web.系统管理.XTRZ系统日志;
+import com.anzhilai.core.toolkit.encrypt.RSAUtil;
+import com.anzhilai.core.toolkit.image.VerifyImageUtil;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.apache.log4j.Logger;
@@ -22,8 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.*;
 
 
 //@domain RYXX人员信息Controller
@@ -34,6 +37,68 @@ import java.util.Map;
 public class RYXX人员信息Controller<T extends RYXX人员信息> extends BaseModelController<RYXX人员信息> {
     private static Logger log = Logger.getLogger(RYXX人员信息Controller.class);
 
+    @XController(name = "获取验证码", isLogin = XController.LoginState.No)
+    @RequestMapping(value = "/verify_code", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String verify_code(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
+        String type = RequestUtil.GetString(request, "type");
+        Map<String, Object> params = null;
+        if ("slide".equals(type)) {
+            String key = RequestUtil.GetString(request, "key");
+            boolean validate = false;
+            if (StrUtil.isNotEmpty(key)) {
+                validate = VerifyCodeUtil.ValidateSlideCode(key);
+                params = new HashMap<>();
+                params.put("validate", validate);
+            }
+            if (!validate) {
+                File root = new File(GlobalValues.GetTemplateFilePath("imgs"));
+                double cutZoom = RequestUtil.GetDoubleParameter(request, "cutZoom");
+                if (root.exists()) {
+                    ArrayList<File> imgs = new ArrayList<>();
+                    for (File f : root.listFiles()) {
+                        if (f.isFile()) {
+                            imgs.add(f);
+                        }
+                    }
+                    if (imgs.size() > 0) {
+                        File img = imgs.get(new Random().nextInt(imgs.size()));
+                        VerifyImageUtil.VerifyImage verifyImage = new VerifyImageUtil(cutZoom).getVerifyImage(img.getPath());
+                        String verifyCode = DateUtil.GetDateTimeString(new Date()) + "_" + verifyImage.XPosition;
+                        params = new HashMap<>();
+                        params.put("validate", validate);
+                        params.put("key", RSAUtil.encrypt(verifyCode, VerifyCodeUtil.GetPublicKey())); //公钥加密
+                        params.put("top", verifyImage.YPosition);
+                        params.put("bgImg", verifyImage.srcImage);
+                        params.put("cutImg", verifyImage.cutImage);
+                    }
+                }
+            }
+            if (params == null) {
+                return AjaxResult.False("模板图片不存在").ToJson();
+            }
+        } else {
+            int length = RequestUtil.GetIntParameter(request, "length");
+            int w = RequestUtil.GetIntParameter(request, "w");
+            int h = RequestUtil.GetIntParameter(request, "h");
+            if (length <= 0) {
+                length = 4;
+            }
+            if (w <= 0) {
+                w = 200;
+            }
+            if (h <= 0) {
+                h = 80;
+            }
+            String verifyCode = DateUtil.GetDateTimeString(new Date()) + "_" + VerifyCodeUtil.generateVerifyCode(length);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();//输出图片
+            VerifyCodeUtil.outputImage(w, h, out, verifyCode);
+            params = new HashMap<>();
+            params.put("key", RSAUtil.encrypt(verifyCode, VerifyCodeUtil.GetPublicKey())); //公钥加密
+            params.put("img", java.util.Base64.getEncoder().encodeToString(out.toByteArray()));
+        }
+        return AjaxResult.True(params).ToJson();
+    }
 
     @XController(name = "登录", isLogin = XController.LoginState.No)
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")

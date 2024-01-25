@@ -1,11 +1,10 @@
 package com.anzhilai.admin.web.系统管理;
 
 import com.anzhilai.core.base.*;
-import com.anzhilai.core.database.AjaxResult;
-import com.anzhilai.core.database.SqlCache;
+import com.anzhilai.core.database.*;
+import com.anzhilai.core.database.sqlite.SqliteDB;
 import com.anzhilai.core.framework.GlobalValues;
 import com.anzhilai.core.toolkit.*;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -32,7 +31,7 @@ public class XTPZ系统配置Controller extends BaseModelController<XTPZ系统�
     @RequestMapping(value = {"/queryinfo"}, method = {RequestMethod.POST}, produces = {"text/html;charset=UTF-8"})
     @ResponseBody
     public String queryinfo(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
-        return super.queryinfo(request,response,session,model);
+        return super.queryinfo(request, response, session, model);
     }
 
     @XController(name = "平台数据同步", isLogin = XController.LoginState.No)
@@ -220,5 +219,89 @@ public class XTPZ系统配置Controller extends BaseModelController<XTPZ系统�
                 数据字段列表.add(数据字段);
             }
         }
+    }
+
+    @XController(name = "下载离线数据库")
+    @RequestMapping(value = "/exportdb", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String exportdb(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        String title = "数据库备份";
+        String dateStr = DateUtil.ToString(new Date(), "yyyyMMddHHmmss");
+        String tempFile = GlobalValues.GetTempPath() + "/" + title + dateStr + ".db";
+        SqliteDB dataSource = new SqliteDB(tempFile);
+        try {
+            DBSession dbSession = DBSession.GetSession();
+            dbSession.SetCurrentDB(dataSource);
+            for (Class<? extends BaseModel> aClass : GetSaveModelClass()) {
+                dataSource.CheckTable(aClass);
+                dbSession.UseDefaultDB();
+                DataTable dataTable = GetAllList(aClass);
+                dbSession.SetCurrentDB(dataSource);
+                for (Map<String, Object> row : dataTable.Data) {
+                    BaseModel baseModel = aClass.newInstance();
+                    baseModel.SetValuesByMap(row);
+                    try {
+                        baseModel.SaveWithoutValidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            dbSession.UseDefaultDB();
+            response.setHeader("Content-Disposition",
+                    "attachment; filename=" + new String((title + ".db").getBytes("UTF-8"), "ISO_8859_1"));
+            response.setContentType("application/x-msdownload");
+            HttpUtil.exportFile(response, tempFile);
+        } finally {
+            dataSource.closeConnection();
+            new File(tempFile).delete();//删除文件
+        }
+        return null;
+    }
+
+    @XController(name = "导入离线数据库")
+    @RequestMapping(value = "/importdb", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String importdb(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        String fileName = RequestUtil.GetParameter(request, "db文件");
+        String dbFile = GlobalValues.GetUploadFilePath(fileName);
+        File file = new File(dbFile);
+        if (file.exists()) {
+            SqliteDB dataSource = new SqliteDB(dbFile);
+            DBSession dbSession = DBSession.GetSession();
+            for (Class<? extends BaseModel> aClass : GetSaveModelClass()) {
+                dbSession.SetCurrentDB(dataSource);
+                DataTable dataTable = GetAllList(aClass);//从sqlite中查询
+                dbSession.UseDefaultDB();
+                for (Map<String, Object> row : dataTable.Data) {
+                    try {
+                        BaseModel baseModel = aClass.newInstance();
+                        baseModel.SetValuesByMap(row);
+                        baseModel.SaveWithoutValidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            dbSession.UseDefaultDB();
+            dataSource.closeConnection();
+            file.delete();
+        }
+        return AjaxResult.True().ToJson();
+    }
+
+    public static List<Class<? extends BaseModel>> GetSaveModelClass() {
+        List<Class<? extends BaseModel>> list = new ArrayList<>();
+        for (String key : SqlCache.hashMapClasses.keySet()) {
+            list.add(SqlCache.hashMapClasses.get(key));
+        }
+        return list;
+    }
+
+    public static DataTable GetAllList(Class<? extends BaseModel> aClass) throws Exception {
+        String table = SqlCache.GetTableName(aClass);
+        SqlInfo sqlInfo = new SqlInfo().CreateSelectAll(table);
+        sqlInfo.AppendOrderBy(table, BaseModel.F_CreateTime, true);
+        return SqlExe.ListSql(sqlInfo, null);
     }
 }
