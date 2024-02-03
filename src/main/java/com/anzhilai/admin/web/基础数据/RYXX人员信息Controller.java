@@ -247,7 +247,7 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
             if (StrUtil.isEmpty(默认密码)) {
                 默认密码 = "123456";
             }
-            user.Update(RYXX人员信息.F_登录密码, 默认密码);
+            user.Update(RYXX人员信息.F_登录密码, RYXX人员信息.FormatPwd(默认密码));
             return AjaxResult.True().ToJson();
         }
         return AjaxResult.False("用户不存在").ToJson();
