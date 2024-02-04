@@ -13,11 +13,14 @@ public class ZZBM组织部门 extends BaseModelTree {
     @XColumn
     public String 组织名称;
     public final static String F_组织名称 = "组织名称";
-
     @Override
     public String GetNameField() {
         return F_组织名称;
     }
+
+    @XColumn
+    public String 组织简称;
+    public final static String F_组织简称 = "组织简称";
 
     @XColumn(foreignTable = RYXX人员信息.F_TableName)
     public String 负责人id;
@@ -117,6 +120,7 @@ public class ZZBM组织部门 extends BaseModelTree {
         su.AppendColumn(ZZBM组织部门.F_TableName, F_TreeName);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_IsTreeLeaf);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_组织名称);
+        su.AppendColumn(ZZBM组织部门.F_TableName, F_组织简称);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_负责人id);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_审核人ids);
         su.AppendColumn(ZZBM组织部门.F_TableName, F_联系电话);

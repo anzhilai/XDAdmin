@@ -1,6 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {XModal, XGrid, XButton, XInput, XCard, XTableGrid, XForm, XBasePage, XSelectTree, XSelectList, XFlex, XBaseStyle} from "xdcoreweb";
+import {
+    XModal,
+    XGrid,
+    XButton,
+    XInput,
+    XCard,
+    XTableGrid,
+    XForm,
+    XBasePage,
+    XSelectTree,
+    XSelectList,
+    XFlex,
+    XBaseStyle
+} from "xdcoreweb";
 
 //@menu 组织部门
 export default class 组织部门 extends XBasePage {
@@ -22,6 +35,9 @@ export default class 组织部门 extends XBasePage {
         this.state.visibleColumns1 = [
             {
                 field: "组织名称",
+                keyword: true,
+            }, {
+                field: "组织简称",
                 keyword: true,
             },
             {
@@ -66,6 +82,7 @@ export default class 组织部门 extends XBasePage {
                                  dataSourceUrl={"zzbm/querylist"}
                                  treePathInfoUrl={"zzbm/treeinfo"} displayField={"组织名称"} parent={() => this.form}/>
                     <XInput isRequired={true} labelWidth={labelWidth} field={"组织名称"} parent={() => this.form}/>
+                    <XInput labelWidth={labelWidth} field={"组织简称"} parent={() => this.form}/>
                     <XSelectList field={"组织类型"} labelWidth={labelWidth} items={["公司", "部门"]}
                                  parent={() => this.form}
                                  onValueChange={v => {
