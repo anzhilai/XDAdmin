@@ -42,7 +42,7 @@ export default class 主界面 extends XBasePage {
         data.gathermenus = [];
       }
       this.SaveGatherData(data, true);
-      this.setState({MenuData: this.GetCurrentUserMenus(true), refreshUserKey: new Date().getTime()})
+      this.setState({MenuData: this.ReloadCurrentUserMenus(), refreshUserKey: new Date().getTime()})
     } else {
       this.setState({refreshUserKey: new Date().getTime()})
     }
