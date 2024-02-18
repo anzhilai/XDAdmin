@@ -52,7 +52,11 @@ public class RYXX人员信息Controller<T extends RYXX人员信息> extends Base
                 params.put("validate", validate);
             }
             if (!validate) {
-                File root = new File(GlobalValues.GetTemplateFilePath("imgs"));
+                String rootPath = GlobalValues.GetApplicationPath() + File.separator;
+                File root = new File(rootPath + "validateImgs");
+                if (!root.exists()) {
+                    root = new File(rootPath + "static" + File.separator + "validateImgs");
+                }
                 double cutZoom = RequestUtil.GetDoubleParameter(request, "cutZoom");
                 if (root.exists()) {
                     ArrayList<File> imgs = new ArrayList<>();
